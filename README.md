@@ -19,5 +19,11 @@
 + Tạo bảng [DangKy]
 <img width="1918" height="1076" alt="image" src="https://github.com/user-attachments/assets/38c45b95-43c1-4201-8beb-7d3890ed410e" />
 
+3. Kết quả tạo database + bảng
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/d69b16b2-4658-4711-96ce-4db2c7d0c00f" />
+
+### Phần 2: Xây dựng Function
+
+
 
 
