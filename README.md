@@ -23,6 +23,17 @@
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/d69b16b2-4658-4711-96ce-4db2c7d0c00f" />
 
 ### Phần 2: Xây dựng Function
+Các loại hàm Build_in Funtion trong SQL Server:
+
++ Hàm xử lý chuỗi: `LEN()`, `UPPER()`, `LOWER()`
+
++ Hàm số học: `ABS()`, `ROUND()`
+
++ Hàm ngày tháng: `GETDATE()`, `DATEDIFF()`
+
++ Hàm tổng hợp: `SUM()`, `AVG()`, `COUNT()`
+
++ Hàm chuyển đổi: `CAST()`, `CONVERT()`
 
 
 
