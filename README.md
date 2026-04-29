@@ -23,7 +23,7 @@
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/d69b16b2-4658-4711-96ce-4db2c7d0c00f" />
 
 ### Phần 2: Xây dựng Function
-Các loại hàm Build_in Funtion trong SQL Server:
+#### Các loại hàm Build_in Funtion trong SQL Server:
 
 + Hàm xử lý chuỗi: `LEN()`, `UPPER()`, `LOWER()`
 
@@ -35,7 +35,7 @@ Các loại hàm Build_in Funtion trong SQL Server:
 
 + Hàm chuyển đổi: `CAST()`, `CONVERT()`
 
-Một số ví dụ khai thác các hàm:
+#### Một số ví dụ khai thác các hàm:
 
 + `DATEDIFF()` – tính tuổi sinh viên
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/583ad335-a85e-4675-b946-80b4dadb114b" />
@@ -49,7 +49,7 @@ Một số ví dụ khai thác các hàm:
 + `AVG()` – tính điểm trung bình
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f50aa948-b4c5-4428-bbdc-869b4a86a0d5" />
 
-Hàm do người dùng tự viết trong SQL (User-defined Function)
+#### Hàm do người dùng tự viết trong SQL (User-defined Function)
 + Mục đích:
 - Tái sử dụng các đoạn xử lý nhiều lần 
 - Làm câu lệnh SQL ngắn gọn, dễ đọc hơn 
@@ -70,7 +70,7 @@ Các loại hàm:
 - Có thể chứa nhiều lệnh, dùng biến bảng
 - Dùng khi xử lý logic phức tạp nhiều bước
 
-Tại sao vẫn cần tự viết function ?
+#### Tại sao vẫn cần tự viết function ?
 Mặc dù SQL Server có nhiều system function (built-in), nhưng:
 - Chúng chỉ giải quyết các bài toán chung
 - Không đáp ứng được yêu cầu riêng của từng hệ thống 
