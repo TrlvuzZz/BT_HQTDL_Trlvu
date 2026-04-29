@@ -50,12 +50,12 @@
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f50aa948-b4c5-4428-bbdc-869b4a86a0d5" />
 
 #### Hàm do người dùng tự viết trong SQL (User-defined Function)
-+ Mục đích:
+Mục đích:
 - Tái sử dụng các đoạn xử lý nhiều lần 
 - Làm câu lệnh SQL ngắn gọn, dễ đọc hơn 
 - Xử lý các nghiệp vụ riêng của bài toán (ví dụ: xếp loại sinh viên, tính điểm, lọc dữ liệu)
 
-Các loại hàm:
+#### Các loại hàm:
 1. Scalar Function
 - Trả về 1 giá trị duy nhất 
 - Dùng khi cần tính toán hoặc xử lý đơn lẻ
