@@ -35,6 +35,21 @@ Các loại hàm Build_in Funtion trong SQL Server:
 
 + Hàm chuyển đổi: `CAST()`, `CONVERT()`
 
+Một số ví dụ khai thác các hàm:
+
++ `DATEDIFF()` – tính tuổi sinh viên
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/583ad335-a85e-4675-b946-80b4dadb114b" />
+
++ `LEN()` – độ dài tên sinh viên
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/52e90b79-f5fe-4519-91f5-40245d0b833b" />
+
++ `UPPER()` – viết hoa tên
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/35861970-0d34-40da-93ae-d2cff5b11685" />
+
++ `AVG()` – tính điểm trung bình
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f50aa948-b4c5-4428-bbdc-869b4a86a0d5" />
+
+
 
 
 
