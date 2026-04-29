@@ -74,6 +74,7 @@ Tại sao vẫn cần tự viết function ?
 Mặc dù SQL Server có nhiều system function (built-in), nhưng:
 - Chúng chỉ giải quyết các bài toán chung
 - Không đáp ứng được yêu cầu riêng của từng hệ thống 
+
 => Vì vậy cần tự viết function để:
 - Xử lý logic đặc thù (ví dụ: quy tắc xếp loại riêng) 
 - Tái sử dụng nhiều lần 
