@@ -96,3 +96,9 @@ Idea: Tạo danh sách sinh viên kèm xếp loại
 
 ---
 ### Phần 3: Xây dựng Store Procedure
+#### Stored Procedure (SP) có sẵn trong SQL Server
+Trong SQL Server có các System Stored Procedure (SP) là các thủ tục được xây dựng sẵn để:
+- Quản lý database
+- Xem thông tin bảng, cột
+- Hỗ trợ lập trình và quản trị
+*Thường có tiền tố: `sp_`*
