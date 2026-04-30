@@ -103,3 +103,18 @@ Trong SQL Server có các System Stored Procedure (SP) là các thủ tục đư
 - Hỗ trợ lập trình và quản trị
 
 *Thường có tiền tố: `sp_`*
+
+### Một số System SP em tìm hiểu được:
+1. `sp_help` – Xem thông tin bảng
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/076eb60b-9a60-4f4f-896c-802541e9f074" />
+
+2. `sp_columns` – Xem chi tiết cột
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/aec60bff-7a26-4e55-97d4-3124263c098b" />
+
+3. `sp_helpconstraint` – Xem ràng buộc
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/032083d6-e74f-4b2f-93fb-d5d59c6cf134" />
+
+4. `sp_databases` – Xem danh sách database
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/5fbd1c2b-8501-4951-9c6d-05e25e3657d3" />
+
+
