@@ -4,6 +4,7 @@
 + **Lớp:** K59KMT.K01
 + **Mã số sinh viên:** K235510205299
 + **Trường:** Đại học Kỹ thuật Công nghiệp Thái Nguyên
+
 ---
 ### Phần 1: Thiết kế và Khởi tạo Cấu trúc Dữ liệu
 1. Chọn đề tài: *Quản lý lớp học*, tạo database
@@ -22,6 +23,7 @@
 3. Kết quả tạo database + bảng
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/d69b16b2-4658-4711-96ce-4db2c7d0c00f" />
 
+---
 ### Phần 2: Xây dựng Function
 #### Các loại hàm Build_in Funtion trong SQL Server:
 
@@ -78,5 +80,19 @@ Mặc dù SQL Server có nhiều system function (built-in), nhưng:
 => Vì vậy cần tự viết function để:
 - Xử lý logic đặc thù (ví dụ: quy tắc xếp loại riêng) 
 - Tái sử dụng nhiều lần 
-- Giúp code rõ ràng, dễ bảo trì 
+- Giúp code rõ ràng, dễ bảo trì
 
+#### Hàm Scalar Function (Hàm trả về một giá trị):
+Idea: Xếp loại sinh viên theo điểm trung bình
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/9b3377a2-b4c5-4f7d-84ce-66ba4d70bf8c" />
+
+#### Hàm Inline Table-Valued Function:
+Idea: Lấy danh sách sinh viên có điểm ≥ giá trị nhập vào
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f7dbb357-3f9e-4cac-bd55-823c950e3773" />
+
+#### Hàm Multi-statement Table-Valued Function:
+Idea: Tạo danh sách sinh viên kèm xếp loại
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/1032a95c-9e29-4799-b3aa-fad89fa40fb5" />
+
+---
+### Phần 3: Xây dựng Store Procedure
