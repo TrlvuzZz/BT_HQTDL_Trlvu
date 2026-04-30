@@ -147,6 +147,32 @@ Trigger B → A (DangKy → SinhVien)
 Khi cập nhật điểm trong bảng DangKy, trigger sẽ tự động tính lại điểm trung bình và cập nhật vào bảng SinhVien, giúp dữ liệu luôn chính xác.
 Update DangKy → Trigger chạy → Cập nhật lại SinhVien
 
+### Phần 5: Cursor và Duyệt dữ liệu
++ Script sử dụng CURSOR:
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/e44334e4-25f3-46e4-b8a4-b636b19bf19c" />
+Khi đó:
+- CURSOR duyệt từng dòng
+- Mỗi sinh viên được xử lý riêng
+- In ra kết quả từng người
+
++ Script không sử dụng CURSOR
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/e34b88a9-8ef5-491e-a2e6-388c522efc1e" />
+Khi đó:
+- SQL xử lý toàn bộ dữ liệu cùng lúc
+- Không cần duyệt từng dòng
+- Ngắn hơn + nhanh hơn
+
++ So sánh tốc độ giữa CURSOR và không dùng CURSOR
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f2f7c264-b161-465a-a086-7b64e0dfcbe4" />
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/bdd4c137-bde9-4f13-9e18-3c2aafea4b50" />
+
+Ý tưởng bài toán mà CURSOR thích hợp hơn
+Tăng điểm từng sinh viên nhưng:
++ Nếu sinh viên trước < 5 → sinh viên sau chỉ được cộng 0.5
++ Nếu ≥ 5 → cộng 1
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/40d27e43-8f65-44c9-99a6-959d8a1f8103" />
+CURSOR giúp xử lý từng sinh viên theo thứ tự và áp dụng logic phụ thuộc vào bản ghi trước, nhưng có nhược điểm là tốc độ chậm hơn so với các câu lệnh SQL thông thường. Tuy nhiên, trong những bài toán có logic phức tạp và phụ thuộc giữa các bản ghi, CURSOR lại phù hợp và dễ triển khai hơn so với SQL thuần.
+
 
 
 
