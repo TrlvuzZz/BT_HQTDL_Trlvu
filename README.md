@@ -117,4 +117,17 @@ Trong SQL Server có các System Stored Procedure (SP) là các thủ tục đư
 4. `sp_databases` – Xem danh sách database
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/5fbd1c2b-8501-4951-9c6d-05e25e3657d3" />
 
+#### Stored Procedure INSERT (có kiểm tra điều kiện)
+Idea: Thêm sinh viên mới nhưng điểm phải từ 0 → 10, nếu sai thì không cho thêm.
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/61422cf2-d9a2-4c50-a0df-681c5902f173" />
+
+#### Stored Procedure có OUTPUT
+Idea: Tính điểm trung bình của toàn bộ sinh viên và trả về qua biến OUTPUT.
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/b38faa23-fa00-4e75-81ed-6c922385a752" />
+
+#### Stored Procedure JOIN nhiều bảng
+Idea: Lấy danh sách sinh viên + tên môn học + điểm từ bảng đăng ký.
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/8694316f-fea8-44a2-81f9-52e4e6eb38f8" />
+
+### Phần 4: Trigger và Xử lý logic nghiệp vụ
 
