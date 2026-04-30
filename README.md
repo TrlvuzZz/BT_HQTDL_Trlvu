@@ -101,4 +101,5 @@ Trong SQL Server có các System Stored Procedure (SP) là các thủ tục đư
 - Quản lý database
 - Xem thông tin bảng, cột
 - Hỗ trợ lập trình và quản trị
+
 *Thường có tiền tố: `sp_`*
