@@ -130,4 +130,24 @@ Idea: Lấy danh sách sinh viên + tên môn học + điểm từ bảng đăng
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/8694316f-fea8-44a2-81f9-52e4e6eb38f8" />
 
 ### Phần 4: Trigger và Xử lý logic nghiệp vụ
++ Trigger để tự động làm gì đó tại 1 bảng A khi mà dữ liệu thay đổi dữ liệu ở bảng B:
+Idea: Khi cập nhật điểm trong bảng DangKy → Tự động cập nhật điểm trung bình trong bảng SinhVien
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/34a700db-f736-4b21-aeed-9b39a269c10e" />
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/0e2e7b25-1b76-4a93-8f23-96bc7b058c23" />
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/56a21397-a393-4abf-92c4-33ad2eb6330d" />
+Trigger A → B (SinhVien → DangKy)
+Khi thêm dữ liệu vào bảng SinhVien, trigger sẽ tự động tạo một bản ghi tương ứng trong bảng DangKy. Điều này giúp hệ thống tự động đăng ký môn học cho sinh viên mà không cần nhập thủ công.
+Insert SinhVien → Trigger chạy → Thêm dữ liệu vào DangKy
+
++ Trigger cho Bảng A : Khi insert thì cập nhật dữ liệu vào bảng B; sau đó viết trigger cho bảng B để khi B được cập nhật thì cập nhật sang bảng A
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/ffc56d75-32af-4cd7-9250-7bad891b9cee" />
+<img width="1917" height="1077" alt="image" src="https://github.com/user-attachments/assets/44bf6532-0c41-4454-9835-23e0fd9085ea" />
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/5f70cb02-c492-4067-9560-2a64c4e50631" />
+Trigger B → A (DangKy → SinhVien)
+Khi cập nhật điểm trong bảng DangKy, trigger sẽ tự động tính lại điểm trung bình và cập nhật vào bảng SinhVien, giúp dữ liệu luôn chính xác.
+Update DangKy → Trigger chạy → Cập nhật lại SinhVien
+
+
+
+
 
