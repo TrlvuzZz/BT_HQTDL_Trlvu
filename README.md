@@ -422,6 +422,17 @@ Khi đó:
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f2f7c264-b161-465a-a086-7b64e0dfcbe4" />
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/bdd4c137-bde9-4f13-9e18-3c2aafea4b50" />
 
+| Tiêu chí                     | Dùng CURSOR                              | Không dùng CURSOR (SQL thuần)        |
+|------------------------------|------------------------------------------|--------------------------------------|
+| Cách xử lý                  | Duyệt từng dòng (row-by-row)             | Xử lý theo tập dữ liệu (set-based)   |
+| Tốc độ                      | Chậm                                     | Nhanh hơn                            |
+| Hiệu năng                   | Thấp khi dữ liệu lớn                     | Cao, tối ưu tốt                      |
+| Độ phức tạp                 | Dễ viết với logic phức tạp               | Khó viết nếu logic phức tạp          |
+| Khả năng xử lý phụ thuộc    | Tốt (dòng sau phụ thuộc dòng trước)      | Hạn chế                              |
+| Tính linh hoạt              | Cao                                      | Thấp hơn                             |
+| Tính ứng dụng               | Logic đặc biệt, tuần tự                  | Truy vấn, thống kê thông thường      |
+| Khả năng thay thế           | Khó thay thế bằng SQL thường             | Thường thay thế được cursor          |
+
 Ý tưởng bài toán mà CURSOR thích hợp hơn
 Tăng điểm từng sinh viên nhưng:
 + Nếu sinh viên trước < 5 → sinh viên sau chỉ được cộng 0.5
