@@ -12,12 +12,51 @@
 
 2. Tạo ít nhất 3 bảng có quan hệ với nhau
 + Tạo bảng [SinhVien]
+```sql
+CREATE TABLE [SinhVien] (
+    [SinhVienID] INT IDENTITY(1,1) PRIMARY KEY, -- PK
+    [HoTen] NVARCHAR(100) NOT NULL,
+    [NgaySinh] DATE,
+    [GioiTinh] NVARCHAR(10) 
+        CHECK ([GioiTinh] IN (N'Nam', N'Nữ')), -- CK
+    [DiemTB] FLOAT 
+        CHECK ([DiemTB] BETWEEN 0 AND 10) -- CK
+);
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/48d9e01c-1382-4bb7-8762-ca50ad4e7abe" />
 
 + Tạo bảng [MonHoc]
+```sql
+CREATE TABLE [MonHoc] (
+    [MonHocID] INT IDENTITY(1,1) PRIMARY KEY, -- PK
+    [TenMonHoc] NVARCHAR(100) NOT NULL,
+    [SoTinChi] INT 
+        CHECK ([SoTinChi] > 0), -- CK
+    [HocPhi] DECIMAL(10,2) 
+        CHECK ([HocPhi] >= 0) -- CK
+);
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/1e592cc9-723b-4199-825b-83a194ce26b2" />
 
 + Tạo bảng [DangKy]
+```sql
+CREATE TABLE [DangKy] (
+    [DangKyID] INT IDENTITY(1,1) PRIMARY KEY, -- PK
+    [SinhVienID] INT,
+    [MonHocID] INT,
+    [NgayDangKy] DATE DEFAULT GETDATE(),
+    [Diem] FLOAT 
+        CHECK ([Diem] BETWEEN 0 AND 10), -- CK
+
+    CONSTRAINT [FK_DangKy_SinhVien]
+        FOREIGN KEY ([SinhVienID]) 
+        REFERENCES [SinhVien]([SinhVienID]), -- FK
+
+    CONSTRAINT [FK_DangKy_MonHoc]
+        FOREIGN KEY ([MonHocID]) 
+        REFERENCES [MonHoc]([MonHocID]) -- FK
+);
+```
 <img width="1918" height="1076" alt="image" src="https://github.com/user-attachments/assets/38c45b95-43c1-4201-8beb-7d3890ed410e" />
 
 3. Kết quả tạo database + bảng
