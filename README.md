@@ -11,7 +11,6 @@
 ```sql
 CREATE DATABASE [QuanLyLopHoc_K123456789];
 GO
-
 USE [QuanLyLopHoc_K123456789];
 GO
 ```
