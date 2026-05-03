@@ -153,27 +153,38 @@ Mặc dù SQL Server có nhiều system function (built-in), nhưng:
 #### Hàm Scalar Function (Hàm trả về một giá trị):
 Idea: Xếp loại sinh viên theo điểm trung bình
 ```sql
+-- Tạo hàm
 CREATE FUNCTION [fn_XepLoai] (@Diem FLOAT)
 RETURNS NVARCHAR(20)
 AS
 BEGIN
-    DECLARE @KetQua NVARCHAR(20);
+    DECLARE @KQ NVARCHAR(20);
+
     IF (@Diem >= 8)
-        SET @KetQua = N'Gioi';
+        SET @KQ = N'Gioi';
     ELSE IF (@Diem >= 6.5)
-        SET @KetQua = N'Kha';
+        SET @KQ = N'Kha';
     ELSE IF (@Diem >= 5)
-        SET @KetQua = N'Trung Binh';
+        SET @KQ = N'Trung Binh';
     ELSE
-        SET @KetQua = N'Yeu';
-    RETURN @KetQua;
+        SET @KQ = N'Yeu';
+
+    RETURN @KQ;
 END;
+GO
+-- Khai thác hàm
+SELECT 
+    [HoTen],
+    [DiemTB],
+    dbo.fn_XepLoai([DiemTB]) AS [XepLoai]
+FROM [SinhVien];
 ```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/9b3377a2-b4c5-4f7d-84ce-66ba4d70bf8c" />
 
 #### Hàm Inline Table-Valued Function:
 Idea: Lấy danh sách sinh viên có điểm ≥ giá trị nhập vào
 ```sql
+-- Tạo hàm
 CREATE FUNCTION [fn_SinhVienDiemCao] (@Diem FLOAT)
 RETURNS TABLE
 AS
@@ -182,28 +193,40 @@ RETURN (
     FROM [SinhVien]
     WHERE [DiemTB] >= @Diem
 );
+GO
+
+-- Khai thác hàm
+SELECT * 
+FROM dbo.fn_SinhVienDiemCao(7);
 ```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f7dbb357-3f9e-4cac-bd55-823c950e3773" />
 
 #### Hàm Multi-statement Table-Valued Function:
 Idea: Tạo danh sách sinh viên kèm xếp loại
 ```sql
+-- Tạo hàm
 CREATE FUNCTION [fn_DanhSachXepLoai]()
-RETURNS @KetQua TABLE (
+RETURNS @KQ TABLE (
     [HoTen] NVARCHAR(100),
     [DiemTB] FLOAT,
     [XepLoai] NVARCHAR(20)
 )
 AS
 BEGIN
-    INSERT INTO @KetQua
+    INSERT INTO @KQ
     SELECT 
         [HoTen],
         [DiemTB],
         dbo.fn_XepLoai([DiemTB])
     FROM [SinhVien];
+
     RETURN;
 END;
+GO
+
+-- Khai thác hàm
+SELECT * 
+FROM dbo.fn_DanhSachXepLoai();
 ```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/1032a95c-9e29-4799-b3aa-fad89fa40fb5" />
 
@@ -219,27 +242,101 @@ Trong SQL Server có các System Stored Procedure (SP) là các thủ tục đư
 
 ### Một số System SP em tìm hiểu được:
 1. `sp_help` – Xem thông tin bảng
+```sql
+EXEC sp_help 'SinhVien';
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/076eb60b-9a60-4f4f-896c-802541e9f074" />
 
 2. `sp_columns` – Xem chi tiết cột
+```sql
+EXEC sp_columns 'SinhVien';
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/aec60bff-7a26-4e55-97d4-3124263c098b" />
 
 3. `sp_helpconstraint` – Xem ràng buộc
+```sql
+EXEC sp_helpconstraint 'DangKy';
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/032083d6-e74f-4b2f-93fb-d5d59c6cf134" />
 
 4. `sp_databases` – Xem danh sách database
+```sql
+EXEC sp_databases;
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/5fbd1c2b-8501-4951-9c6d-05e25e3657d3" />
 
 #### Stored Procedure INSERT (có kiểm tra điều kiện)
 Idea: Thêm sinh viên mới nhưng điểm phải từ 0 → 10, nếu sai thì không cho thêm.
+```sql
+-- Tạo SP
+CREATE PROCEDURE [sp_ThemSinhVien]
+    @HoTen NVARCHAR(100),
+    @NgaySinh DATE,
+    @GioiTinh NVARCHAR(10),
+    @DiemTB FLOAT
+AS
+BEGIN
+    IF (@DiemTB < 0 OR @DiemTB > 10)
+    BEGIN
+        PRINT N'Diem khong hop le';
+        RETURN;
+    END
+
+    INSERT INTO [SinhVien] ([HoTen], [NgaySinh], [GioiTinh], [DiemTB])
+    VALUES (@HoTen, @NgaySinh, @GioiTinh, @DiemTB);
+END;
+GO
+
+-- Gọi SP
+EXEC sp_ThemSinhVien 
+    N'Pham Van D', '2005-03-10', N'Nam', 8.2;
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/61422cf2-d9a2-4c50-a0df-681c5902f173" />
 
 #### Stored Procedure có OUTPUT
 Idea: Tính điểm trung bình của toàn bộ sinh viên và trả về qua biến OUTPUT.
+```sql
+-- Tạo SP
+CREATE PROCEDURE [sp_TinhDiemTrungBinh]
+    @DiemTB FLOAT OUTPUT
+AS
+BEGIN
+    SELECT @DiemTB = AVG([DiemTB])
+    FROM [SinhVien];
+END;
+GO
+
+-- Gọi SP
+DECLARE @KQ FLOAT;
+
+EXEC sp_TinhDiemTrungBinh @KQ OUTPUT;
+
+SELECT @KQ AS [DiemTrungBinh];
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/b38faa23-fa00-4e75-81ed-6c922385a752" />
 
 #### Stored Procedure JOIN nhiều bảng
 Idea: Lấy danh sách sinh viên + tên môn học + điểm từ bảng đăng ký.
+```sql
+-- Tạo SP
+CREATE PROCEDURE [sp_DanhSachDangKy]
+AS
+BEGIN
+    SELECT 
+        sv.[HoTen],
+        mh.[TenMonHoc],
+        dk.[Diem]
+    FROM [DangKy] dk
+    INNER JOIN [SinhVien] sv 
+        ON dk.[SinhVienID] = sv.[SinhVienID]
+    INNER JOIN [MonHoc] mh 
+        ON dk.[MonHocID] = mh.[MonHocID];
+END;
+GO
+
+-- Gọi SP
+EXEC sp_DanhSachDangKy;
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/8694316f-fea8-44a2-81f9-52e4e6eb38f8" />
 
 ---
@@ -264,6 +361,38 @@ Update DangKy → Trigger chạy → Cập nhật lại SinhVien
 ---
 ### Phần 5: Cursor và Duyệt dữ liệu
 + Script sử dụng CURSOR:
+```sql
+DECLARE @HoTen NVARCHAR(100);
+DECLARE @DiemTB FLOAT;
+DECLARE @XepLoai NVARCHAR(50);
+
+DECLARE cur_SinhVien CURSOR
+FOR
+SELECT [HoTen], [DiemTB]
+FROM [SinhVien];
+
+OPEN cur_SinhVien;
+
+FETCH NEXT FROM cur_SinhVien INTO @HoTen, @DiemTB;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    SET @XepLoai =
+        CASE 
+            WHEN @DiemTB >= 8 THEN N'Gioi'
+            WHEN @DiemTB >= 6.5 THEN N'Kha'
+            WHEN @DiemTB >= 5 THEN N'Trung Binh'
+            ELSE N'Yeu'
+        END;
+
+    PRINT N'SV: ' + @HoTen + N' - Xep loai: ' + @XepLoai;
+
+    FETCH NEXT FROM cur_SinhVien INTO @HoTen, @DiemTB;
+END;
+
+CLOSE cur_SinhVien;
+DEALLOCATE cur_SinhVien;
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/e44334e4-25f3-46e4-b8a4-b636b19bf19c" />
 Khi đó:
 - CURSOR duyệt từng dòng
@@ -271,6 +400,18 @@ Khi đó:
 - In ra kết quả từng người
 
 + Script không sử dụng CURSOR
+```sql
+SELECT 
+    [HoTen],
+    [DiemTB],
+    CASE 
+        WHEN [DiemTB] >= 8 THEN N'Gioi'
+        WHEN [DiemTB] >= 6.5 THEN N'Kha'
+        WHEN [DiemTB] >= 5 THEN N'Trung Binh'
+        ELSE N'Yeu'
+    END AS [XepLoai]
+FROM [SinhVien];
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/e34b88a9-8ef5-491e-a2e6-388c522efc1e" />
 Khi đó:
 - SQL xử lý toàn bộ dữ liệu cùng lúc
@@ -285,6 +426,18 @@ Khi đó:
 Tăng điểm từng sinh viên nhưng:
 + Nếu sinh viên trước < 5 → sinh viên sau chỉ được cộng 0.5
 + Nếu ≥ 5 → cộng 1
+```sql
+SELECT 
+    [HoTen],
+    [DiemTB],
+    CASE 
+        WHEN [DiemTB] >= 8 THEN N'Gioi'
+        WHEN [DiemTB] >= 6.5 THEN N'Kha'
+        WHEN [DiemTB] >= 5 THEN N'Trung Binh'
+        ELSE N'Yeu'
+    END AS [XepLoai]
+FROM [SinhVien];
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/40d27e43-8f65-44c9-99a6-959d8a1f8103" />
 CURSOR giúp xử lý từng sinh viên theo thứ tự và áp dụng logic phụ thuộc vào bản ghi trước, nhưng có nhược điểm là tốc độ chậm hơn so với các câu lệnh SQL thông thường. Tuy nhiên, trong những bài toán có logic phức tạp và phụ thuộc giữa các bản ghi, CURSOR lại phù hợp và dễ triển khai hơn so với SQL thuần.
 
