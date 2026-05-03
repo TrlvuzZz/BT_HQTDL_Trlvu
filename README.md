@@ -9,9 +9,9 @@
 ### Phần 1: Thiết kế và Khởi tạo Cấu trúc Dữ liệu
 1. Chọn đề tài: *Quản lý lớp học*, tạo database `QuanLyLopHoc_K235510205299`
 ```sql
-CREATE DATABASE [QuanLyLopHoc_K123456789];
+CREATE DATABASE [QuanLyLopHoc_K235510205299];
 GO
-USE [QuanLyLopHoc_K123456789];
+USE [QuanLyLopHoc_K235510205299];
 GO
 ```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/14b7783c-e2e1-4376-84a2-44e905451f90" />
