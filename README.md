@@ -85,15 +85,38 @@ CREATE TABLE [DangKy] (
 #### Một số ví dụ khai thác các hàm:
 
 + `DATEDIFF()` – tính tuổi sinh viên
+```sql
+SELECT 
+    [HoTen],
+    [NgaySinh],
+    DATEDIFF(YEAR, [NgaySinh], GETDATE()) AS [Tuoi]
+FROM [SinhVien];
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/583ad335-a85e-4675-b946-80b4dadb114b" />
 
 + `LEN()` – độ dài tên sinh viên
+```sql
+SELECT 
+    [HoTen],
+    LEN([HoTen]) AS [DoDaiTen]
+FROM [SinhVien];
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/52e90b79-f5fe-4519-91f5-40245d0b833b" />
 
 + `UPPER()` – viết hoa tên
+```sql
+SELECT 
+    UPPER([HoTen]) AS [TenInHoa]
+FROM [SinhVien];
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/35861970-0d34-40da-93ae-d2cff5b11685" />
 
 + `AVG()` – tính điểm trung bình
+```sql
+SELECT 
+    AVG([DiemTB]) AS [DiemTrungBinh]
+FROM [SinhVien];
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f50aa948-b4c5-4428-bbdc-869b4a86a0d5" />
 
 #### Hàm do người dùng tự viết trong SQL (User-defined Function)
@@ -129,14 +152,59 @@ Mặc dù SQL Server có nhiều system function (built-in), nhưng:
 
 #### Hàm Scalar Function (Hàm trả về một giá trị):
 Idea: Xếp loại sinh viên theo điểm trung bình
+```sql
+CREATE FUNCTION [fn_XepLoai] (@Diem FLOAT)
+RETURNS NVARCHAR(20)
+AS
+BEGIN
+    DECLARE @KetQua NVARCHAR(20);
+    IF (@Diem >= 8)
+        SET @KetQua = N'Gioi';
+    ELSE IF (@Diem >= 6.5)
+        SET @KetQua = N'Kha';
+    ELSE IF (@Diem >= 5)
+        SET @KetQua = N'Trung Binh';
+    ELSE
+        SET @KetQua = N'Yeu';
+    RETURN @KetQua;
+END;
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/9b3377a2-b4c5-4f7d-84ce-66ba4d70bf8c" />
 
 #### Hàm Inline Table-Valued Function:
 Idea: Lấy danh sách sinh viên có điểm ≥ giá trị nhập vào
+```sql
+CREATE FUNCTION [fn_SinhVienDiemCao] (@Diem FLOAT)
+RETURNS TABLE
+AS
+RETURN (
+    SELECT *
+    FROM [SinhVien]
+    WHERE [DiemTB] >= @Diem
+);
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/f7dbb357-3f9e-4cac-bd55-823c950e3773" />
 
 #### Hàm Multi-statement Table-Valued Function:
 Idea: Tạo danh sách sinh viên kèm xếp loại
+```sql
+CREATE FUNCTION [fn_DanhSachXepLoai]()
+RETURNS @KetQua TABLE (
+    [HoTen] NVARCHAR(100),
+    [DiemTB] FLOAT,
+    [XepLoai] NVARCHAR(20)
+)
+AS
+BEGIN
+    INSERT INTO @KetQua
+    SELECT 
+        [HoTen],
+        [DiemTB],
+        dbo.fn_XepLoai([DiemTB])
+    FROM [SinhVien];
+    RETURN;
+END;
+```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/1032a95c-9e29-4799-b3aa-fad89fa40fb5" />
 
 ---
