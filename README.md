@@ -129,6 +129,7 @@ Idea: Tính điểm trung bình của toàn bộ sinh viên và trả về qua b
 Idea: Lấy danh sách sinh viên + tên môn học + điểm từ bảng đăng ký.
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/8694316f-fea8-44a2-81f9-52e4e6eb38f8" />
 
+---
 ### Phần 4: Trigger và Xử lý logic nghiệp vụ
 + Trigger để tự động làm gì đó tại 1 bảng A khi mà dữ liệu thay đổi dữ liệu ở bảng B:
 Idea: Khi cập nhật điểm trong bảng DangKy → Tự động cập nhật điểm trung bình trong bảng SinhVien
@@ -147,6 +148,7 @@ Trigger B → A (DangKy → SinhVien)
 Khi cập nhật điểm trong bảng DangKy, trigger sẽ tự động tính lại điểm trung bình và cập nhật vào bảng SinhVien, giúp dữ liệu luôn chính xác.
 Update DangKy → Trigger chạy → Cập nhật lại SinhVien
 
+---
 ### Phần 5: Cursor và Duyệt dữ liệu
 + Script sử dụng CURSOR:
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/e44334e4-25f3-46e4-b8a4-b636b19bf19c" />
