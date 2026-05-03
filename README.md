@@ -438,16 +438,70 @@ Tăng điểm từng sinh viên nhưng:
 + Nếu sinh viên trước < 5 → sinh viên sau chỉ được cộng 0.5
 + Nếu ≥ 5 → cộng 1
 ```sql
-SELECT 
-    [HoTen],
-    [DiemTB],
-    CASE 
-        WHEN [DiemTB] >= 8 THEN N'Gioi'
-        WHEN [DiemTB] >= 6.5 THEN N'Kha'
-        WHEN [DiemTB] >= 5 THEN N'Trung Binh'
-        ELSE N'Yeu'
-    END AS [XepLoai]
-FROM [SinhVien];
+-- Cursor tăng điểm có giới hạn max = 10
+
+DECLARE @SinhVienID INT;
+DECLARE @DiemTB FLOAT;
+DECLARE @DiemTruoc FLOAT = NULL;
+DECLARE @Tang FLOAT;
+
+-- Bảng tạm để lưu kết quả (phục vụ chụp ảnh)
+DECLARE @KetQua TABLE (
+    SinhVienID INT,
+    DiemCu FLOAT,
+    DiemTang FLOAT,
+    DiemMoi FLOAT
+);
+
+DECLARE cur_SV CURSOR
+FOR
+SELECT [SinhVienID], [DiemTB]
+FROM [SinhVien]
+ORDER BY [SinhVienID];
+
+OPEN cur_SV;
+
+FETCH NEXT FROM cur_SV INTO @SinhVienID, @DiemTB;
+
+WHILE @@FETCH_STATUS = 0
+BEGIN
+    -- Xác định mức tăng
+    IF @DiemTruoc IS NULL
+        SET @Tang = 1;
+    ELSE
+        SET @Tang = 
+            CASE 
+                WHEN @DiemTruoc < 5 THEN 0.5
+                ELSE 1
+            END;
+
+    -- Tính điểm mới (có chặn max = 10)
+    DECLARE @DiemMoi FLOAT =
+        CASE 
+            WHEN @DiemTB + @Tang > 10 THEN 10
+            ELSE @DiemTB + @Tang
+        END;
+
+    -- Lưu vào bảng kết quả
+    INSERT INTO @KetQua
+    VALUES (@SinhVienID, @DiemTB, @Tang, @DiemMoi);
+
+    -- Update thật vào bảng
+    UPDATE [SinhVien]
+    SET [DiemTB] = @DiemMoi
+    WHERE [SinhVienID] = @SinhVienID;
+
+    -- Gán lại điểm trước
+    SET @DiemTruoc = @DiemTB;
+
+    FETCH NEXT FROM cur_SV INTO @SinhVienID, @DiemTB;
+END;
+
+CLOSE cur_SV;
+DEALLOCATE cur_SV;
+
+-- Hiển thị kết quả để chụp
+SELECT * FROM @KetQua;
 ```
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/40d27e43-8f65-44c9-99a6-959d8a1f8103" />
 CURSOR giúp xử lý từng sinh viên theo thứ tự và áp dụng logic phụ thuộc vào bản ghi trước, nhưng có nhược điểm là tốc độ chậm hơn so với các câu lệnh SQL thông thường. Tuy nhiên, trong những bài toán có logic phức tạp và phụ thuộc giữa các bản ghi, CURSOR lại phù hợp và dễ triển khai hơn so với SQL thuần.
